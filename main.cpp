@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <map>
+#include <fstream>
 
 #include "room.h"
 
@@ -9,20 +10,21 @@ using namespace std;
 int main()
 {
         bool foundkey = false;
+        bool unlockRoom = false;
     /* ---------- Variable Declerations ---------- */
         string exitChoice;
 
         /* ---------- Room Intialization ---------- */
-        Room *kitchen = new Room("Kitchen", "You are in the Kitchen. Pots and pans dangle above your head as you look across the room.");
-        Room *diningRoom = new Room("Dining Room", "You are in the Dining Room. You see a large table in the center of the room complete with a set of chairs. It seems no one has ate here in quite som time.");
-        Room *garage = new Room("Garage", "You are in the Garage. There are tools spread across the concerte floor complete with a Jeep Grand Cherokee on jack stands.");
-        Room *masterBed = new Room("Master Bed Room", "You are in the Bed Room. A large Master Bed greets you as you walk into the room. You can see a large master bath as weel in the backround");
-        Room *hallway = new Room("Hallway", "You are in the Hallway. A large set of stairs leads to the second floor, complete with a set to the basement. You also see a grand front door.");
-        Room *familyRoom = new Room("Family Room", "You are in the Family Room. You see a dark leather couch in front of you as well as a brand new LCD TV. It aappears South Park is on TV.");
-        Room *bathRoom = new Room("Bath Room", "You are in the Bath Room. A small room containing just a toilet is in front of you.");
-        Room *frontLawn = new Room("Front Lawn", "You are in the Front Lawn. You are on a pathway and observe freshly cut grass as well as several trees scattered across the yard.");
-        Room *backLawn = new Room("Back Lawn", "You are in the Back Lawn. You see 'Spot' running around chasing a tennis ball, as well as his dog house. A large wooden fence keeps him in the yard.");
-        Room *keyRoom = new Room("Room of Keys", "This room has the Key for the Room of Treasures.");
+        Room *kitchen = new Room("Kitchen", "You are in the Kitchen. There are Yams everywhere.");
+        Room *diningRoom = new Room("Dining Room", "Tastefully created dishes are spread across the table on the finest Versace linens.");
+        Room *garage = new Room("Garage", "Interestingly 2 Chainz drives a 1997 Toyota Corolla. Who would have guessed. And of course it does not have a ceiling.");
+        Room *masterBed = new Room("Master Bed Room", "2 Chainz's bed is a jacuzzi...not quite sure who that works but to each is own.");
+        Room *hallway = new Room("Hallway", "You are in the Hallway. It's a pretty standard Gucci accesorized hallway.");
+        Room *trophyRoom = new Room("Trophy Room", "You are in the Trophy Room. Framed weaves as far as the eye can see...");
+        Room *bathRoom = new Room("Bath Room", "You are in the Bath Room. 2 Words: GOLDEN TOILET.");
+        Room *frontLawn = new Room("Front Lawn", "You are in the Front Lawn. You see the grass is freshly cut and a white picket fence is visible in the distance. A Rhinestone path leads you to the Locked Room.");
+        Room *backLawn = new Room("Back Lawn", "You are in the Back Lawn. There's another Jacuzzi and a large charcoal girll. That's about it.");
+        Room *keyRoom = new Room("Room of Keys", "This room has the Key for the Room of Treasures. But for real it's an entire room for 1 key.");
         Room *lockedRoom = new Room("Locked Room", "This room can only be accessed when you have the key.");
         /* ----------Room Links---------- */
 
@@ -34,7 +36,7 @@ int main()
 
         /* Dining Room */
         diningRoom->link(kitchen, "South");
-        diningRoom->link(familyRoom, "West");
+        diningRoom->link(trophyRoom, "West");
 
         /* Master Bed Room */
         masterBed->link(kitchen, "North");
@@ -49,11 +51,11 @@ int main()
         backLawn->link(keyRoom,"South");
 
         /* Family Room */
-        familyRoom->link(diningRoom, "East");
-        familyRoom->link(hallway, "South");
+        trophyRoom->link(diningRoom, "East");
+        trophyRoom->link(hallway, "South");
 
         /* Hallway */
-        hallway->link(familyRoom, "North");
+        hallway->link(trophyRoom, "North");
         hallway->link(kitchen, "East");
         hallway->link(bathRoom, "South");
         hallway->link(frontLawn, "West");
@@ -72,6 +74,8 @@ int main()
 
         /* ----------Gameplay---------- */
         Room *currentRoom = kitchen;
+        int kitchenCount = 0;
+        cout<<"Welcome to the 2 Chainz Mansion!"<<endl;
 
         while (exitChoice != "quit")
         {
@@ -84,10 +88,31 @@ int main()
                 foundkey = true;
 
             if(currentRoom == lockedRoom && foundkey == true)
-                cout<<"Success you unlocked the room and won the game!"<<endl;
+                unlockRoom = true;
 
-            else
+            if(unlockRoom)
             {
+                cout<<"Congratulations! You have unlocked the room and won the game!"<<endl;
+                cout<<"Want to know what's in 2 Chain's room of treasures?!?! You guessed it! More weaves..."<<endl;
+            }
+
+            if(currentRoom == kitchen)
+                kitchenCount++;
+            if(kitchenCount > 1)
+            {
+                string cook;
+                int cCount = 0;
+                cout<<"Uh oh! Its #MEALTIME! Better show them how to cook!"<<endl;
+                cout<<"Hit c to keep cookin!"<<endl;
+                while(cCount < 10)
+                {
+                     cin>>cook;
+                     cCount++;
+                }
+                cout<<"Killed it!!! Let's keep on going..."<<endl;
+
+            }
+
                 cout << "Which exit? (Or 'quit'):";
                 cin >> exitChoice;
 
@@ -102,7 +127,7 @@ int main()
                 currentRoom->getLinked(exitChoice);
 
                 currentRoom = currentRoom->getLinked(exitChoice);
-            }
+
         }
 
         return 0;

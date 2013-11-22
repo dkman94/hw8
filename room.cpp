@@ -52,10 +52,9 @@ Room *Room::getLinked(string direction)
 void Room::printLinked()
 {
     map<string, Room*>::iterator it;
-
+    cout<<"Below are the exits available to you..."<<endl;
     for(it = exits.begin(); it != exits.end(); it++)
     {
-        cout<<"Below are the exits available to you..."<<endl;
         cout << it->first << " (" << (it->second)->getName() <<")"<< endl;
     }
 }
