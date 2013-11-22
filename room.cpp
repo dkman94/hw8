@@ -1,26 +1,38 @@
 #include "room.h"
 
-#inlcude <iostream>
+#include <iostream>
 #include <string>
 using namespace std;
+  /* Constructor with Name and Description */
+        room :: room(string _name, string _description)
+        {
+            name = _name;
+            description = _description;
+        }
 
-Room(string name_, string description_)
+
+        /* Contrsuctor with Name */
+        room :: room(string _name)
+        {
+            name = _name;
+        }
+void Room::link(string direction, Room *r)
 {
-    name = name_;
-    description = description_;
+    exits[direction] = r;
 }
 
-string getName()
+Room *Room::getLinked(string description)
 {
-    return name;
+    Room* temproom = new Room("temp", "temp");
+    return temproom;
 }
 
-string getDescription()
+void Room::printLinked()
 {
-    return description;
+    map<string, Room*>::iterator it;
+    for(it = exits.begin(); it != exits.end(); it++)
+    {
+        cout<<it->first<<"and"<<(it->second).getName()<<endl;
+    }
 }
 
-void link(string direction, Room *r)
-{
-
-}

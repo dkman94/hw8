@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1385100261 source:c:\users\deepak\documents\github\hw8\main.cpp
+	"room.h"
+	<iostream>
+
+1385100493 c:\users\deepak\documents\github\hw8\room.h
+	<iostream>
+	<map>
+
